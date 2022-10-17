@@ -109,7 +109,7 @@ class NumberNode:
 	def __repr__(self) :
 		return f'{self.tok}'
 
-class binOpNode:
+class BinOpNode:
 	def __init__(self, left_node, op_tok, right_node) :
 		self.left_node = left_node
 		self.op_tok = op_tok
@@ -150,7 +150,9 @@ class Parser :
 			op_tok = self.current_tok
 			self.advance()
 			rigt = func()
-			left = binOpNode(left, op_tok, rigt)
+			left = BinOpNode(left, op_tok, rigt)
+		
+		return left
 
 
 	def term(self) :
