@@ -167,8 +167,12 @@ def run(text) :
 	lexer = Lexer(text)
 	tokens, error = lexer.make_tokens()
 
+	#check error
+	if error:
+		return None, error
+
 	#generate parse tree
 	parser = Parser(tokens)
 	parse_tree = parser.parse()
 
-	return parse_tree, error
+	return parse_tree, None
