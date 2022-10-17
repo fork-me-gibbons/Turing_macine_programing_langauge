@@ -132,6 +132,12 @@ class Parser :
 			self.current_tok = self.tokens[self.tok_idx]
 		return self.current_tok
 
+		################################################
+
+	def parse(self)	:
+		res = self.expr()
+		return res
+
 	def factor(self) :
 		tok = self.current_tok
 
@@ -150,10 +156,10 @@ class Parser :
 
 
 	def term(self) :
-		pass
+		return self.bin_op(self.factor ,(TT_MUL, TT_DIV))
 
 	def expr(self) :
-		pass
+		return self.bin_op(self.term ,(TT_ADD, TT_MINUS))
 
 
 
@@ -161,4 +167,8 @@ def run(text) :
 	lexer = Lexer(text)
 	tokens, error = lexer.make_tokens()
 
-	return tokens, error
+	#generate parse tree
+	parser = Parser(tokens)
+	parse_tree = parser.parse()
+
+	return parse_tree, error
