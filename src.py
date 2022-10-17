@@ -28,7 +28,7 @@ class IllegalCharError:
 		self.details = details
 
 	def __repr__(self) :
-		f'Illegal Character: {self.details}'
+		return f'Illegal Character: {self.details}'
 
 class Token:
 	def __init__(self, type_, value = None) :
