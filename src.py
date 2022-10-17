@@ -139,8 +139,15 @@ class Parser :
 			self.advance()
 			return NumberNode(tok)
 
-	def bin_op(self) :
-		pass
+	def bin_op(self, func, ops) :
+		left = func()
+
+		while self.current_tok in ops :
+			op_tok = self.current_tok
+			self.advance()
+			rigt = func()
+			left = binOpNode(left, op_tok, rigt)
+
 
 	def term(self) :
 		pass
