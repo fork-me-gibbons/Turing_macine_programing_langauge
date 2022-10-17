@@ -122,7 +122,7 @@ class Parser :
 	def __init__(self, tokens) :
 		self.tokens = tokens
 		self.tok_idx = -1
-		self.advace()
+		self.advance()
 
 	def advance(self) :
 		self.tok_idx += 1
@@ -130,7 +130,7 @@ class Parser :
 			self.current_tok = self.tokens[self.tok_idx]
 		return self.current_tok
 
-		################################################
+		###################################################
 
 	def parse(self)	:
 		res = self.expr()
