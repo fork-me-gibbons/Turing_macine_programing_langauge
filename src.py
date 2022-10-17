@@ -1,4 +1,3 @@
-from _typeshed import Self
 import os
 import pygame, sys
 from pygame import QUIT
