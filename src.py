@@ -97,7 +97,18 @@ class NumberNode:
 		return f'{self.tok}'
 
 class binOpNode:
-	chadEdit	
+	def __init__(self, left_node, op_tok, right_node) :
+		self.left_node = left_node
+		self.op_tok = op_tok
+		self.right_node = right_node
+		pass
+
+	def __repr__(self) :
+		f'({self.left_node}, {self.op_tok}, {self.right_node})'
+
+
+
+
 def run(text) :
 	lexer = Lexer(text)
 	tokens = lexer.make_tokens()
