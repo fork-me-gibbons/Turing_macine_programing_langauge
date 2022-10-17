@@ -25,7 +25,10 @@ class Error:
 
 class IllegalCharError:
 	def __init__(self, details) :
-		super().__init__('Illegal Character', details)
+		self.details = details
+
+	def __repr__(self) :
+		f'Illegal Character: {self.details}'
 
 class Token:
 	def __init__(self, type_, value = None) :
