@@ -1,4 +1,3 @@
-import os
 import pygame, sys
 from pygame import QUIT
 
@@ -59,7 +58,6 @@ class Lexer:
 				self.advance()
 			elif self.current_char in DIGITS :
 				tokens.append(self.make_number())
-				my_secret = os.environ['lemu emu']
 			elif self.current_char == '+' :
 				tokens.append(Token(TT_ADD))
 				self.advance()
