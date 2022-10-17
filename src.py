@@ -1,3 +1,4 @@
+from _typeshed import Self
 import os
 import pygame, sys
 from pygame import QUIT
@@ -24,7 +25,7 @@ class Token:
 	def __repr__(self):
 		if self.value :
 			return f'{self.type}:{self.value}'
-		return f'{self.type}'
+			return f'{self.type}'
 
 class Lexer:
 	def __init__(self,text) :
@@ -106,6 +107,17 @@ class binOpNode:
 	def __repr__(self) :
 		f'({self.left_node}, {self.op_tok}, {self.right_node})'
 
+class Parser :
+	def __init__(self, tokens) :
+		self.tokens = tokens
+		self.tok_idx = -1
+		self.advace()
+
+	def advance(self) :
+		self.tok_idx += 1
+		if self.tok_idx < len(self.tokens) :
+			self.current_tok = self.tokens[self.tok_idx]
+			
 
 
 
