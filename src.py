@@ -1,3 +1,4 @@
+from ctypes import BigEndianStructure
 import pygame, sys
 from pygame import QUIT
 
@@ -150,9 +151,7 @@ class Parser :
 			op_tok = self.current_tok
 			self.advance()
 			rigt = func()
-			left = BinOpNode(left, op_tok, rigt)
-		
-		return left
+			return BinOpNode(left, op_tok, rigt)
 
 
 	def term(self) :
