@@ -1,3 +1,3 @@
-# Turing machine programing langauge
+# Turing machine programing language
 
 progaming fun
