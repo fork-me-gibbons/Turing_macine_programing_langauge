@@ -1,4 +1,3 @@
-from ctypes import BigEndianStructure
 import pygame, sys
 from pygame import QUIT
 
