@@ -14,7 +14,18 @@ TT_MUL = 'MUL'
 TT_DIV = 'DIV'
 TT_OPP = 'OPENPAREN'
 TT_CLP = 'CLOSEDPAREN'
-TT_ERR = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!'
+
+class Error:
+	def __init__(self, error_name, details) :
+		self.error_name = error_name
+		self.details = details
+
+	def __repr__(self) :
+		return f'{self.error_name} :{self.details}'
+
+class IllegalCharError:
+	def __init__(self, details) :
+		super().__init__('Illegal Character', details)
 
 class Token:
 	def __init__(self, type_, value = None) :
@@ -64,11 +75,12 @@ class Lexer:
 			elif self.current_char == ')' :
 				tokens.append(Token(TT_CLP))
 				self.advance()
-			#ezloop
-			elif self.current_char not in TOKENS :
-				print('syntax error unkown token')
-				break
-		return tokens
+			else:
+				char = self.current_char
+				self.advance()
+				return [], IllegalCharError("'" + char + "'")
+		
+		return tokens, None
 
 	def make_number(self) :
 		num_str = ''
@@ -77,7 +89,9 @@ class Lexer:
 		while self.current_char != None and self.current_char in DIGITS + '.' :
 			if self.current_char == '.' :
 				if dot_count == 1 :
-					print('syntax error: INT has 2 dots')
+					IllegalCharError("'" + num_str + "contains too many dots '")
+					num_str = 0
+					break
 				dot_count += 1
 				num_str += '.'
 			else:
@@ -85,8 +99,6 @@ class Lexer:
 			self.advance()
 		if dot_count == 0 :
 			return Token(TT_INT, int(num_str))
-		elif dot_count > 1 :
-			return Token(TT_ERR, 'WHAT DID YOU DO THIS INTEGER IS CURSED')
 		else:
 			return Token(TT_INT, float(num_str))
 #me good
@@ -101,7 +113,6 @@ class binOpNode:
 		self.left_node = left_node
 		self.op_tok = op_tok
 		self.right_node = right_node
-		pass
 
 	def __repr__(self) :
 		f'({self.left_node}, {self.op_tok}, {self.right_node})'
@@ -116,12 +127,28 @@ class Parser :
 		self.tok_idx += 1
 		if self.tok_idx < len(self.tokens) :
 			self.current_tok = self.tokens[self.tok_idx]
-			
+		return self.current_tok
+
+	def factor(self) :
+		tok = self.current_tok
+
+		if tok.type in TT_INT :
+			self.advance()
+			return NumberNode(tok)
+
+	def bin_op(self) :
+		pass
+
+	def term(self) :
+		pass
+
+	def expr(self) :
+		pass
 
 
 
 def run(text) :
 	lexer = Lexer(text)
-	tokens = lexer.make_tokens()
+	tokens, error = lexer.make_tokens()
 
-	return tokens
+	return tokens, error
