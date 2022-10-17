@@ -1,3 +1,4 @@
 # Turing machine programing language
 
-progaming fun
+progaming fun*hi hi hi hi*
+*hi is bold*
